@@ -15,7 +15,7 @@ const firmSchema= mongoose.Schema({
        type: [
             {
                 type:String,
-                enum:['veg','nonveg']
+                enum:['Veg','Non-veg']
             }
         ]
     },

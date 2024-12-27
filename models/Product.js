@@ -13,7 +13,7 @@ const productSchema=mongoose.Schema({
         type: [
             {
                 type:String,
-                enum:['veg','nonveg']
+                enum:['Veg','Non-Veg']
             }
         ]
     },
