@@ -12,15 +12,23 @@ const venderRegister=async(req,res)=>{
     const {userName,email,password}=req.body
     try {
         const venderEmail=await Vender.findOne({email})
-        if(venderEmail) {return res.status(400).json("Email alredy exist")}
-        const hashedPassword=await bcrypt.hash(password,10)
-        const newVender =new Vender(
-            {userName,email,password:hashedPassword}
-        )
-        await newVender.save()
+        if(venderEmail) {
+            res.status(400).json({message:"Email alredy exist from back end"}),
+            console.log("email alredy used in backend")
+        
+        }
+        else{const hashedPassword=await bcrypt.hash(password,10)
+            const newVender =new Vender(    
+            {userName,email,password:hashedPassword},
+            
+            )
+            await newVender.save()
+        
+        
     
-        res.status(201).json({message:"Vender registerd successfully"})
-        console.log('resisterd')
+    res.status(201).json({message:"Vender registerd successfully this msg is from backend",data:newVender})
+    console.log('resisterd in backed')} 
+
     } catch (error) {
         console.error(error)
         res.status(500).json({message:"Internal server erroer"})

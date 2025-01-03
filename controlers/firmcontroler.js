@@ -1,6 +1,7 @@
 const Firm=require('../models/Firm')
 const multer=require('multer')
 const Vender=require("../models/Vender")
+const path=require('path')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

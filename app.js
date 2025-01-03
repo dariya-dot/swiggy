@@ -7,9 +7,13 @@ const bodyParser=require('body-parser')
 const exp = require('constants')
 const firmrouter=require('./routers/firmrouter')
 const productrouter=require("./routers/productroutes")
+const cors=require('cors')
+
+app.use(cors());
 
 const PORT=process.env.PORT || 3001
 dotEnv.config()
+
 mongoose.connect(process.env.URI)
 .then(()=>{console.log("the Mongoose connection is sucessful")})
 .catch((error)=>{console.error(error)})
@@ -22,3 +26,5 @@ app.listen(PORT,()=>{
     console.log(`the server is running at ${PORT}`)
 })
 app.use('/',(req,res)=>{res.send("hi the server is running")})
+
+
