@@ -21,10 +21,11 @@ app.use(bodyParser.json())
 app.use('/vender',venderRouter)
 app.use('/firm',firmrouter)
 app.use('/product',productrouter)
+app.use('uploads',express.static('uploads'))
 
 app.listen(PORT,()=>{
     console.log(`the server is running at ${PORT}`)
 })
-app.use('/',(req,res)=>{res.send("hi the server is running")})
+app.use('/',(req,res)=>{res.send("App running ")})
 
 

@@ -21,7 +21,7 @@ const productSchema=mongoose.Schema({
         type:String,
     },
     bestseller:{
-        type:String
+        type:Boolean
     },
     description:{
         type:String
@@ -33,6 +33,12 @@ const productSchema=mongoose.Schema({
     firmname:[{type:String,
         ref:'Firm'}
         
+    ],
+    vendername:[
+        {
+            type:String,
+            ref:'Vender'
+        }
     ]
 })
 const Product = mongoose.model('Product',productSchema)

@@ -41,14 +41,19 @@ const venderLogin=async(req,res)=>{
     const {email,password}=req.body
     try {
         const vender=await Vender.findOne({email})
-        if(!vender || !(await bcrypt.compare(password,vender.password))){
+        if(!vender){return res.status(400).json({message:"email not registerd"})}
+        else if(!vender || !(await bcrypt.compare(password,vender.password))){
             return res.status(401).json({message:"invalid username or password"})
         }
+       
         
-        const token=jwt.sign({venderId:vender._id},secreatKey,{expiresIn:'1h'})
+        const token=jwt.sign({venderId:vender._id},secreatKey,{expiresIn:'5m'})
         const venderId=vender._id
+        const venderName=vender.userName
+    
+        
         console.log(venderId)
-        res.status(201).json({message:"login sussfull",token,venderId})
+        res.status(201).json({message:"login sussfull",token,venderId,venderName})
         
     } catch (error) {
         console.error(error)
@@ -64,17 +69,25 @@ const getAllVenders=async(req,res)=>{
     }
 }
 
-const singlevender=async(req,res)=>{
-    const venderId=req.params.id;
+const getVendorById=async(req,res)=>{
+    const venderId=req.params.venderId;
     try {
-        const singlevender=await Vender.findById(venderId).populate('firm')
-        if(!singlevender){
+        const vender=await Vender.findById(venderId).populate('firm')
+        if(!vender){
             return res.status(404).json({message:"vender not found"})
         }
-        res.status(200).json({singlevender})
+         if (vender.firm.length!==0){const venderFirmId=vender.firm[0]._id
+            res.status(200).json({vender,venderFirmId})
+                    console.log("vender firm id from back end",venderFirmId)
+            } 
+                
+                
+        
+            
+
     } catch (error) {
          console.error(error)
         res.status(500).json({message:"serevr error"})
     }
 }
-module.exports={venderRegister,venderLogin,getAllVenders,singlevender}
+module.exports={venderRegister,venderLogin,getAllVenders,getVendorById}

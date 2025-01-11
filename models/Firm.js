@@ -13,11 +13,11 @@ const firmSchema= mongoose.Schema({
     },
     category:{ 
        type: [
-            {
+            {   
                 type:String,
                 enum:['Veg','Non-veg']
             }
-        ]
+        ]   
     },
     region:{
         type: [

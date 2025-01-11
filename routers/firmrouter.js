@@ -9,7 +9,7 @@ router.delete('/:firmId' ,firmcontroller.deleteFirmById)
 router.get('/uploads:imageName',(req,res)=>{
     const imageName=req.params.imageName;
     res.headersSent('Content-Type','image/jpeg');
-    res.sendFile(Path.join(__dirname,'..','uploads',imageName))
+    res.sendFile(path.join(__dirname,'..','uploads',imageName))
 } )
 
 
