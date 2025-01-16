@@ -4,7 +4,7 @@ const app = express()
 const mongoose=require('mongoose')
 const venderRouter=require('./routers/venderresisterrouter')
 const bodyParser=require('body-parser')
-const exp = require('constants')
+
 const firmrouter=require('./routers/firmrouter')
 const productrouter=require("./routers/productroutes")
 const cors=require('cors')
@@ -22,7 +22,10 @@ app.use(bodyParser.json())
 app.use('/vender',venderRouter)
 app.use('/firm',firmrouter)
 app.use('/product',productrouter)
-app.use('uploads',express.static('uploads'))
+
+
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'build')));
 
 // Handle React routing, return all requests to index.html
@@ -32,6 +35,6 @@ app.get('*', (req, res) => {
 app.listen(PORT,()=>{
     console.log(`the server is running at ${PORT}`)
 })
-app.use('/',(req,res)=>{res.send("App running ")})
+
 
 
