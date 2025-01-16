@@ -14,12 +14,7 @@ app.use(cors());
 
 const PORT=process.env.PORT || 3001
 dotEnv.config()
-app.use(express.static(path.join(__dirname, 'build')));
 
-// Handle React routing, return all requests to index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 mongoose.connect(process.env.URI)
 .then(()=>{console.log("the Mongoose connection is sucessful")})
 .catch((error)=>{console.error(error)})
@@ -28,7 +23,12 @@ app.use('/vender',venderRouter)
 app.use('/firm',firmrouter)
 app.use('/product',productrouter)
 app.use('uploads',express.static('uploads'))
+app.use(express.static(path.join(__dirname, 'build')));
 
+// Handle React routing, return all requests to index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 app.listen(PORT,()=>{
     console.log(`the server is running at ${PORT}`)
 })
