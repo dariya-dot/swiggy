@@ -8,12 +8,18 @@ const exp = require('constants')
 const firmrouter=require('./routers/firmrouter')
 const productrouter=require("./routers/productroutes")
 const cors=require('cors')
+const path= require('path')
 
 app.use(cors());
 
 const PORT=process.env.PORT || 3001
 dotEnv.config()
+app.use(express.static(path.join(__dirname, 'build')));
 
+// Handle React routing, return all requests to index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 mongoose.connect(process.env.URI)
 .then(()=>{console.log("the Mongoose connection is sucessful")})
 .catch((error)=>{console.error(error)})
