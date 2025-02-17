@@ -6,6 +6,7 @@ const router=express.Router()
 router.post('/add-product/:firmId',productcontroler.addProduct)
 router.get('/:firmId/product',productcontroler.getproductbyfirm)
 router.delete('/:productId',productcontroler.deletProduct)
+router.get('/all',productcontroler.getAllProducts)
 
 router.get('/uploads/:imageName', (req, res) => {   
     const imageName = req.params.imageName;

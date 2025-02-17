@@ -78,6 +78,23 @@ const upload = multer({ storage: storage });
       res.status(501).json({message:"server error"})
     }
   }
+
+  const getAllProducts = async (req, res) => {
+    try {
+      const products = await Product.find(); // Fetch all products
+  
+      if (!products || products.length === 0) {
+        return res.status(404).json({ message: "No products found" });
+      }
+  
+      res.status(200).json({ message:"Allproducts fetched ", products });
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  };
+
+
 module.exports={addProduct: [upload.single('image'), addProduct], // Correct middleware order
-  getproductbyfirm,
+  getproductbyfirm,getAllProducts,
   deletProduct};
