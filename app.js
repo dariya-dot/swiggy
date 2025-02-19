@@ -11,14 +11,14 @@ const cors=require('cors')
 const path= require('path')
 
 app.use(cors());
-
+app.use(bodyParser.json())
 const PORT=process.env.PORT || 3001
 dotEnv.config()
 
 mongoose.connect(process.env.URI)
 .then(()=>{console.log("the Mongoose connection is sucessful")})
 .catch((error)=>{console.error(error)})
-app.use(bodyParser.json())
+
 app.use('/vender',venderRouter)
 app.use('/firm',firmrouter)
 app.use('/product',productrouter)
